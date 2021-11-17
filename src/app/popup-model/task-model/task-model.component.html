@@ -1,0 +1,13 @@
+<div class="user-model">
+    <button mat-button class="close-icon" [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+    </button>
+    <form [formGroup]="tasks"  (ngSubmit)="onUserSubmit()">
+        <mat-form-field appearance="outline">
+        <mat-label>Enter task Name</mat-label>
+        <input matInput placeholder="Enter Task Name..." formControlName="szTaskName" required>
+        <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit"  >+Add Task</button>
+    </form>     
+  </div>
