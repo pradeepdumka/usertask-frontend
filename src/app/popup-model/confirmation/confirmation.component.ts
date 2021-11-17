@@ -9,13 +9,15 @@ import { TasManagementServices } from 'src/app/services/task-management.services
 })
 export class ConfirmationComponent implements OnInit {
   dataRef:any
+  userName!:string
   constructor(
     private taskManagement:TasManagementServices,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ConfirmationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
-    this.dataRef= data;
+      this.dataRef= data;
+      this.userName=data.userName
   }
 
   ngOnInit(): void {

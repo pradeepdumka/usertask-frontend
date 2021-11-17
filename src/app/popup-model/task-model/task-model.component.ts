@@ -37,10 +37,10 @@ export class TaskModelComponent implements OnInit {
   }
   getErrorMessage() {
     if (this.tasks?.get(['szTaskName'])?.hasError('required')) {
-      return '*Please Enetr a valid User Name';
+      return '*Please Enetr a valid Task Name';
     }
 
-    return this.tasks?.get(['szTaskName'])?.hasError('szTaskName') ? 'Please Enetr a valid User Name' : '';
+    return this.tasks?.get(['szTaskName'])?.hasError('szTaskName') ? 'Please Enetr a valid Task Name' : '';
   }
   
   get f (){

@@ -19,22 +19,11 @@ import { ConfirmationComponent } from 'src/app/popup-model/confirmation/confirma
 })
 export class UserDetailsComponent implements OnInit  {
  
-
-   
-  // public board: User = new User('UserManagement', [
-  //   new Task('Ideas', 21, [
-  //     'Some random idea',
-  //     'This is another random idea'
-  //   ]),
-  //   new Task('Research', 32, [
-  //     'Lorem ipsum',
-  //     'foo'
-  //   ])
-  // ]);
-
+  isShowForm:boolean=false;
   board :any;
   ardragId:any = []
   isADDNewUser :number=0;
+  isEditing:boolean=true;
   
 
   constructor( 
@@ -98,10 +87,10 @@ export class UserDetailsComponent implements OnInit  {
   }
 
 
-  deleteUserWithTask(userId:number){
+  deleteUserWithTask(userId:number,userName:string){
      let req={id:userId}
      const dialogRef =this.dialog.open(ConfirmationComponent,{
-      data:{id:userId},
+      data:{id:userId ,userName:userName},
      });
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
@@ -111,5 +100,10 @@ export class UserDetailsComponent implements OnInit  {
     
    
   }
+
+    editUserName(userId:number){
+      this.isShowForm=true;
+      console.log(userId)
+    }
 
 }
