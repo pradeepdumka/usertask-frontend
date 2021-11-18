@@ -39,9 +39,7 @@
     right: -14px;
     top: 0px;
 }
-  // .board-column:not(:first-child) {
-  //   margin-left: 0;
-  // }
+
   
   .column-title {
     font-size: 20px;
@@ -89,4 +87,24 @@
   .cdk-drag-handle.column-title {
     cursor: pointer;
 }
-  
+button.mat-focus-indicator.mat-button.mat-button-base.mat-primary {
+  right: 36px;
+  position: absolute;
+  top: 11px;
+}
+button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary.ng-star-inserted {
+  position: absolute;
+  top: 38px;
+  right: 10px;
+}
+.cdk-drag.board-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+:host ::ng-deep mat-form-field.mat-form-field.editUser .mat-form-field-wrapper .mat-form-field-flex {
+  max-width: 74%!important;
+}
+button.mat-focus-indicator.updateBtn.mat-raised-button{
+  z-index: 99;
+}

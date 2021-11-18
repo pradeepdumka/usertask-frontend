@@ -1,14 +1,12 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  ElementRef,  HostListener,  OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
-
-import { Task } from 'src/app/model/task.model';
-import { User } from 'src/app/model/user.nodel';
 
 
 import { TasManagementServices } from 'src/app/services/task-management.services';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TaskModelComponent } from 'src/app/popup-model/task-model/task-model.component';
 import { ConfirmationComponent } from 'src/app/popup-model/confirmation/confirmation.component';
+import { FormControl, Validators } from '@angular/forms';
  
 
  
@@ -18,17 +16,20 @@ import { ConfirmationComponent } from 'src/app/popup-model/confirmation/confirma
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit  {
- 
+  @ViewChild('editUser') editUser!: ElementRef;
+  @ViewChild('edit') edit!: ElementRef;
+  
   isShowForm:boolean=false;
   board :any;
   ardragId:any = []
   isADDNewUser :number=0;
   isEditing:boolean=true;
-  
+  szUserName=new FormControl('',Validators.required);
 
   constructor( 
       private taskManagement:TasManagementServices,
-      private dialog: MatDialog
+      private dialog: MatDialog,
+      private renderer: Renderer2
     ){
       
     }
@@ -39,6 +40,9 @@ export class UserDetailsComponent implements OnInit  {
     dilogConfig.autoFocus=true;
     dilogConfig.width="60%"
     this.getAllUserDetails();
+
+
+
   }
   
   getAllUserDetails(){
@@ -101,9 +105,18 @@ export class UserDetailsComponent implements OnInit  {
    
   }
 
-    editUserName(userId:number){
-      this.isShowForm=true;
-      console.log(userId)
+   
+  setTitleEdit(column:any,userName:string) {
+
+    this.szUserName.patchValue(userName);
+  }
+
+  updateUser(userId:number){
+    if(this.szUserName.status == 'VALID'){
+      console.log("HHHH",this.szUserName)
     }
+   
+  }
+ 
 
 }

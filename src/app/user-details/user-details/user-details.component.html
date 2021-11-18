@@ -12,10 +12,29 @@
               <button mat-button class="close-icon" (click)="deleteUserWithTask(column.id,column.szUserName)" >
                       <mat-icon>close</mat-icon>
                 </button>
-                <div (click)="editUserName(column.id)" class="column-title" cdkDragHandle>
+                <div  *ngIf="!column.canEditCode" class="column-title" cdkDragHandle>
                   {{ column.szUserName }} 
                 </div>
-                 
+                <button 
+                  mat-button 
+                  #edit
+                  *ngIf = "!column.canEditCode" 
+                  (click)="column.canEditCode = true;setTitleEdit(column.id,column.szUserName)" 
+                  color="primary">Edit</button>
+                <button
+                   mat-raised-button 
+                  [disabled]="szUserName.status != 'VALID'"  
+                  class ="updateBtn" type="button" 
+                  *ngIf = "column.canEditCode"
+                  (click)="updateUser(column.id)" 
+                  color="primary">
+                  Update</button>
+                
+                <mat-form-field #editUser class="editUser  EDIT-COL-{{column.id}} "  *ngIf="column.canEditCode" appearance="outline">
+                  <mat-label>Edit User Name</mat-label>
+                   <input   matInput placeholder="Enter Your Name..." [formControl]="szUserName" required>
+                  <!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> -->
+                  </mat-form-field>
                     
                 <div *ngIf = "ardragId "class="tasks-container"
                       id="{{column.id}}"
@@ -27,7 +46,7 @@
                             {{i + 1 }} :   {{ item.szTask }}
                       </div>
                 </div>
-            <button mat-raised-button color="accent" (click)="onTaskCreate(column.id)">+Add Task</button>
+               <button mat-raised-button color="accent" (click)="onTaskCreate(column.id)">+Add Task</button>
            
           </div>
         </div>
