@@ -44,4 +44,13 @@ export class TasManagementServices{
         console.log(body)
         return this.http.post(`${this.baseURL}api/v1/deleteUser`, body,{'headers':headers})
       }
+
+      updateUser(parms:any): Observable<any> {
+        console.log(`${this.baseURL}api/v1/updateUser`)
+        const headers = { 'content-type': 'application/json'}  
+        const body=JSON.stringify(parms);
+        console.log(body)
+        return this.http.put(`${this.baseURL}api/v1/updateUser`, body,{'headers':headers})
+      }
+
 }

@@ -9,30 +9,30 @@
              cdkDragLockAxis="x" class="board-column" 
              *ngFor="let column of board" cdkDrag>
              
-              <button mat-button class="close-icon" (click)="deleteUserWithTask(column.id,column.szUserName)" >
+              <button mat-button class="close-icon" (click)="deleteUserWithTask(column)" >
                       <mat-icon>close</mat-icon>
                 </button>
-                <div  *ngIf="!column.canEditCode" class="column-title" cdkDragHandle>
+                <div  *ngIf="!column.isEdit" class="column-title" cdkDragHandle>
                   {{ column.szUserName }} 
                 </div>
                 <button 
                   mat-button 
-                  #edit
-                  *ngIf = "!column.canEditCode" 
-                  (click)="column.canEditCode = true;setTitleEdit(column.id,column.szUserName)" 
+                  
+                  *ngIf = "!column.isEdit" 
+                  (click)="setTitleEdit(column)" 
                   color="primary">Edit</button>
                 <button
                    mat-raised-button 
-                  [disabled]="szUserName.status != 'VALID'"  
+                   
                   class ="updateBtn" type="button" 
-                  *ngIf = "column.canEditCode"
-                  (click)="updateUser(column.id)" 
+                  *ngIf = "column.isEdit"
+                  (click)="updateUser(column)" 
                   color="primary">
                   Update</button>
                 
-                <mat-form-field #editUser class="editUser  EDIT-COL-{{column.id}} "  *ngIf="column.canEditCode" appearance="outline">
+                <mat-form-field  class="editUser  EDIT-COL-{{column.id}} "  *ngIf="column.isEdit" appearance="outline">
                   <mat-label>Edit User Name</mat-label>
-                   <input   matInput placeholder="Enter Your Name..." [formControl]="szUserName" required>
+                   <input   matInput placeholder="Enter Your Name..." [(ngModel)]="column.szUserName" required>
                   <!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> -->
                   </mat-form-field>
                     

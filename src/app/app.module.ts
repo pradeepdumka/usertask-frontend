@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -42,7 +42,8 @@ import { ConfirmationComponent } from './popup-model/confirmation/confirmation.c
     ReactiveFormsModule,
     MatInputModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

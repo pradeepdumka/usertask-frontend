@@ -1,4 +1,4 @@
-import { Component,  ElementRef,  HostListener,  OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component,   OnInit, Renderer2,  } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 
 
@@ -6,7 +6,7 @@ import { TasManagementServices } from 'src/app/services/task-management.services
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TaskModelComponent } from 'src/app/popup-model/task-model/task-model.component';
 import { ConfirmationComponent } from 'src/app/popup-model/confirmation/confirmation.component';
-import { FormControl, Validators } from '@angular/forms';
+
  
 
  
@@ -16,15 +16,13 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit  {
-  @ViewChild('editUser') editUser!: ElementRef;
-  @ViewChild('edit') edit!: ElementRef;
+ 
   
   isShowForm:boolean=false;
   board :any;
   ardragId:any = []
   isADDNewUser :number=0;
   isEditing:boolean=true;
-  szUserName=new FormControl('',Validators.required);
 
   constructor( 
       private taskManagement:TasManagementServices,
@@ -50,7 +48,9 @@ export class UserDetailsComponent implements OnInit  {
         if(res.status){
           this.board = res.data;
           console.log(this.board)
-        
+          this.board.forEach((element:any) => {
+            element['isEdit'] = false;
+          });
           this.ardragId=this.board.map((res:any)=>{
             return   res.id.toString();
           })
@@ -91,10 +91,9 @@ export class UserDetailsComponent implements OnInit  {
   }
 
 
-  deleteUserWithTask(userId:number,userName:string){
-     let req={id:userId}
+  deleteUserWithTask(data:any){
      const dialogRef =this.dialog.open(ConfirmationComponent,{
-      data:{id:userId ,userName:userName},
+      data:{id:data.id ,userName:data.userName},
      });
      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
@@ -106,16 +105,21 @@ export class UserDetailsComponent implements OnInit  {
   }
 
    
-  setTitleEdit(column:any,userName:string) {
-
-    this.szUserName.patchValue(userName);
+  setTitleEdit(data:any) {
+     data.isEdit=true;
   }
 
-  updateUser(userId:number){
-    if(this.szUserName.status == 'VALID'){
-      console.log("HHHH",this.szUserName)
-    }
-   
+  updateUser(data:any){
+   let parms ={id:data.id,szUserName:data.szUserName}
+   this.taskManagement.updateUser(parms).subscribe((res)=>{
+      console.log(res);
+      if(res.status == 200){
+        data.isEdit=false;
+      }else{
+        data.isEdit=true;
+      }
+      
+   })
   }
  
 
