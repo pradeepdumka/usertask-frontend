@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -20,6 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ConfirmationComponent } from './popup-model/confirmation/confirmation.component'; 
+ 
 
  
 @NgModule({
@@ -45,7 +46,9 @@ import { ConfirmationComponent } from './popup-model/confirmation/confirmation.c
     DragDropModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+  
+  ],
   bootstrap: [AppComponent],
   entryComponents:[UserModelComponent,TaskModelComponent,ConfirmationComponent]
 })
