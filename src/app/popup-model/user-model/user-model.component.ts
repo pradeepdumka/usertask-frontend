@@ -4,6 +4,7 @@ import { Component, OnInit ,ViewEncapsulation } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TasManagementServices } from 'src/app/services/task-management.services';
 @Component({
   selector: 'app-user-model',
@@ -19,8 +20,8 @@ export class UserModelComponent implements OnInit {
     private fb: FormBuilder,
     private taskManagement:TasManagementServices,
     private router:Router,
+    private toster : ToastrService,
     public dialog: MatDialog,
-    
     public dialogRef: MatDialogRef<UserModelComponent>,
     ) { }
 
@@ -49,8 +50,9 @@ export class UserModelComponent implements OnInit {
     this.taskManagement.addNewUser(this.users.value)
     .subscribe((res)=>{
       this.dialogRef.close();
+    
       window.location.reload()
-      
+      this.toster.success("New User added successfully.")
     })
   }
 

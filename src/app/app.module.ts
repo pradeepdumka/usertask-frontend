@@ -20,6 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ConfirmationComponent } from './popup-model/confirmation/confirmation.component'; 
+import { ToastrModule } from 'ngx-toastr';
  
 
  
@@ -44,7 +45,12 @@ import { ConfirmationComponent } from './popup-model/confirmation/confirmation.c
     MatInputModule,
     HttpClientModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [
   
