@@ -39,7 +39,7 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/ngx-toastr/toastr/toastr.js"
+              
             ]
           },
           "configurations": {
