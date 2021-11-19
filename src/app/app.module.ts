@@ -19,6 +19,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatCardModule} from '@angular/material/card'; 
+import {MatDividerModule} from '@angular/material/divider'; 
+
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+
 import { ConfirmationComponent } from './popup-model/confirmation/confirmation.component'; 
 import { ToastrModule } from 'ngx-toastr';
  
@@ -46,6 +52,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     DragDropModule,
     FormsModule,
+    MatCardModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatProgressBarModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',

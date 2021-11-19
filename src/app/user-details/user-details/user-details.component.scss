@@ -109,3 +109,11 @@ button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary.ng-star
 button.mat-focus-indicator.updateBtn.mat-raised-button{
   z-index: 99;
 }
+
+mat-card{
+  width: 350px;
+  height: 400px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+}

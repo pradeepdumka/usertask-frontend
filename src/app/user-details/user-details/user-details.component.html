@@ -1,85 +1,51 @@
-  <div class="root">
-    <div class="board">
-      <div class="board-wrapper">
-        <div class="board-columns" *ngIf="board">
-          <div 
-
-              cdkDropList 
-              cdkDropListOrientation="horizontal" 
-              class="board-columns"
-              (cdkDropListDropped)="dropGrid($event)"
-          
-          >
-          <div 
-             cdkDragLockAxis="x" class="board-column" 
-             *ngFor="let column of board" cdkDrag>
-             
-              <button mat-button class="close-icon" (click)="deleteUserWithTask(column)" >
-                      <mat-icon>close</mat-icon>
-                </button>
-                <div  *ngIf="!column.isEdit" class="column-title" cdkDragHandle>
-                  {{ column.szUserName }} 
-                </div>
-                <button 
-                  mat-button 
-                  
-                  *ngIf = "!column.isEdit" 
-                  (click)="setTitleEdit(column)" 
-                  color="primary">Edit</button>
-                <button
-                   mat-raised-button 
-                   
-                  class ="updateBtn" type="button" 
-                  *ngIf = "column.isEdit"
-                  (click)="updateUser(column)" 
-                  color="primary">
-                  Update</button>
-                
-                <mat-form-field  class="editUser  EDIT-COL-{{column.id}} "  *ngIf="column.isEdit" appearance="outline">
-                  <mat-label>Edit User Name</mat-label>
-                   <input   matInput placeholder="Enter Your Name..." [(ngModel)]="column.szUserName" required>
-                  <!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> -->
-                  </mat-form-field>
-                    
-                <div *ngIf = "ardragId "class="tasks-container"
-                      id="{{column.id}}"
-                      [cdkDropListConnectedTo]="ardragId"
-                      cdkDropList
-                      [cdkDropListData]="column.arTaskDetails"
-                      (cdkDropListDropped)="drop($event)"
-                       
-                    
-                      >
-                     <ng-container  *ngFor="let item of column.arTaskDetails;let  i = index" >
-                      <div 
-                        class="task"
-                        cdkDrag  
-                        [cdkDragData]="item" 
-                       
-                        cdkDrag
-                        *ngIf="!item.isEditTask"
-                        >
-                            {{i + 1 }} :   {{ item.szTask }}  
-                            <button mat-button type="button" (click)= "editCurrentTast(item)">  Edit</button>
-
-                      </div>
-                      <div class ="form-task">
-                        <mat-form-field  class="editTask   "  *ngIf="item.isEditTask" appearance="outline">
-                          <mat-label>Edit User Name</mat-label>
-                          <input   matInput placeholder="Enter Your Name..." [(ngModel)]="item.szTask" required>
-                          
-                          <!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> -->
-                        </mat-form-field>
-                        <button mat-raised-button color="accent" type="button" *ngIf="item.isEditTask" (click)= "updateCurrentTast(item)"> Save</button>
-                      </div>
-
-                    </ng-container>
-                </div>
-               <button mat-raised-button color="accent" (click)="onTaskCreate(column.id)">+Add Task</button>
-           
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="root">
+	<div class="board">
+		<div class="board-wrapper">
+			<div class="board-columns" *ngIf="board ">
+				<div cdkDropList cdkDropListOrientation="horizontal" class="board-columns" (cdkDropListDropped)="dropGrid($event)">
+					<ng-container *ngIf="board && board.length ; else noRecored">
+						<div cdkDragLockAxis="x" class="board-column" *ngFor="let column of board" cdkDrag>
+							<button mat-button class="close-icon" (click)="deleteUserWithTask(column)">
+								<mat-icon>close</mat-icon>
+							</button>
+							<div *ngIf="!column.isEdit" class="column-title" cdkDragHandle> {{ column.szUserName }} </div>
+							<button mat-button *ngIf="!column.isEdit" (click)="setTitleEdit(column)" color="primary">Edit</button>
+							<button mat-raised-button class="updateBtn" type="button" *ngIf="column.isEdit" (click)="updateUser(column)" color="primary"> Update</button>
+							<mat-form-field class="editUser  EDIT-COL-{{column.id}} " *ngIf="column.isEdit" appearance="outline">
+								<mat-label>Edit User Name</mat-label>
+								<input matInput placeholder="Enter Your Name..." [(ngModel)]="column.szUserName" required>
+								<!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> --></mat-form-field>
+							<div *ngIf="ardragId " class="tasks-container" id="{{column.id}}" [cdkDropListConnectedTo]="ardragId" cdkDropList [cdkDropListData]="column.arTaskDetails" (cdkDropListDropped)="drop($event)">
+								<ng-container *ngFor="let item of column.arTaskDetails;let  i = index">
+									<div class="task" cdkDrag [cdkDragData]="item" cdkDrag *ngIf="!item.isEditTask"> {{i + 1 }} : {{ item.szTask }}
+										<button mat-button type="button" (click)="editCurrentTast(item)"> Edit</button>
+									</div>
+									<div class="form-task">
+										<mat-form-field class="editTask   " *ngIf="item.isEditTask" appearance="outline">
+											<mat-label>Edit Task Name</mat-label>
+											<input matInput placeholder="Enter Task Name..." [(ngModel)]="item.szTask" required>
+											<!-- <mat-error *ngIf=" f?.invalid && (f?.touched || f?.dirty)">{{getErrorMessage()}}</mat-error> --></mat-form-field>
+										<button mat-raised-button color="accent" type="button" *ngIf="item.isEditTask" (click)="updateCurrentTast(item)"> Save</button>
+									</div>
+								</ng-container>
+							</div>
+							<button mat-raised-button color="accent" (click)="onTaskCreate(column.id)">+Add Task</button>
+						</div>
+					</ng-container>
+					<ng-template #noRecored>
+						<mat-card class="example-card">
+							<mat-card-title>No recored Found .!</mat-card-title>
+							<mat-card-content>
+								<p>Plz Add User First For Create Task Management Board.</p>
+							</mat-card-content>
+							<mat-divider inset></mat-divider>
+							<mat-card-footer>
+								<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+							</mat-card-footer>
+						</mat-card>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -52,6 +52,7 @@ export class UserDetailsComponent implements OnInit  {
     this.taskManagement.getAllUserWithTask().subscribe((res)=>{
         if(res.status){
           this.board = res.data;
+          console.log(this.board)
           this.board.forEach((element:any) => {
             element['isEdit'] = false;
               element.arTaskDetails.forEach((task:any) => {
@@ -89,7 +90,6 @@ export class UserDetailsComponent implements OnInit  {
         intUserId:event.item.data.intUserId
       }
       this.updateDrangAndDropContainer(objUpdateToContainer,objRemoveFromPrevUser);
-      console.log(objUpdateToContainer)
       transferArrayItem(event.previousContainer.data,
           event.container.data,
           event.previousIndex,
@@ -130,9 +130,10 @@ export class UserDetailsComponent implements OnInit  {
       data:{id:data.id ,userName:data.userName},
      });
      dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
-      //this.dialogValue = result.data;
-      this.toster.success("User Removed successfully.");
+       
+      if(result.status == 200){
+        this.toster.success("User Removed successfully.");
+      }
       this.getAllUserDetails();
     });
     
@@ -157,10 +158,11 @@ export class UserDetailsComponent implements OnInit  {
   updateUser(data:any){
    let parms ={id:data.id,szUserName:data.szUserName}
    this.taskManagement.updateUser(parms).subscribe((res)=>{
-      console.log(res);
+      //console.log(res);
       if(res.status == 200){
-        data.isEdit=false;
         this.toster.success("User Updated successfully.");
+        data.isEdit=false;
+        
       }else{
         data.isEdit=true;
         this.toster.error("Something goes  wrong .")
@@ -189,7 +191,7 @@ export class UserDetailsComponent implements OnInit  {
     this.taskManagement.removePreUserData(objPreUser).subscribe((res)=>{
       console.log(res);
       if(res.status == 200){
-          this.toster.success("You have Assign this task to .");
+          this.toster.success("Assign Task Successfully to other user .");
       }else{
          this.toster.error("Something goes wrong plz check!!");
       }
@@ -212,9 +214,12 @@ export class UserDetailsComponent implements OnInit  {
     }
     item.isEditTask = false;
     this.taskManagement.updateTaskById(params).subscribe((res:any)=>{
-      if(res.staus == 200){
+      console.log("res",res )
+      if(res.status == 200){
          this.toster.success("Task Updated Successfully.")
-      }    
+      }else{
+        this.toster.error("Something goes wrong.")
+      }   
     })
   }
    
