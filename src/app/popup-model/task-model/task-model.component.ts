@@ -58,7 +58,7 @@ export class TaskModelComponent implements OnInit {
 
     this.taskManagement.addNewTask(parmsData)
     .subscribe((res)=>{
-      this.dialogRef.close();
+      this.dialogRef.close(res);
       console.log("Response From Api",res)
       
     })

@@ -110,9 +110,17 @@ export class UserDetailsComponent implements OnInit  {
           });
 
           dialogRef.afterClosed().subscribe(result => {
-            this.toster.success("New Task  Added successfully.")
-            this.getAllUserDetails()
+            console.log(result.status)
+            if(result.status == 200){
+              this.toster.success("New Task  Added successfully.")
+              this.getAllUserDetails()
+            }else{
+              //  this.toster.success("New Task  Added successfully.")
+            }
+            
+
           });
+         
       }
    /**
     * Add New Task function End
@@ -133,8 +141,9 @@ export class UserDetailsComponent implements OnInit  {
        
       if(result.status == 200){
         this.toster.success("User Removed successfully.");
+        this.getAllUserDetails();
       }
-      this.getAllUserDetails();
+      
     });
     
    

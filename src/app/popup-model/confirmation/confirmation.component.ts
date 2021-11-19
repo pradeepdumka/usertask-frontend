@@ -26,10 +26,10 @@ export class ConfirmationComponent implements OnInit {
   onOkClick(){
   
       let params = {id:this.dataRef.id} 
-      console.log(params)
+      //console.log(params)
       this.taskManagement.deleteUserWithTaskDetails(params).subscribe((res=>{
-          console.log(res);
-          this.dialogRef.close();
+          //console.log(res);
+          this.dialogRef.close(res);
       }))
   }
 }
